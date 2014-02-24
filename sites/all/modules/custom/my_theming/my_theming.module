@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @file
+ * Learn theme
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function my_theming_menu() {
+  $items['my_theme'] = array(
+    'title' => t('The theming page'),
+    'page callback' => 'first_table',
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Implements function first_table
+ */
+function first_table() {
+    $header = array( 
+
+
+    array('data' => t('Header cell1')),   
+
+    
+
+    array('data' => t('Header cell2')),   
+
+    
+
+    array('data' => t('Header cell3'))   
+
+  ); 
+
+ 
+
+  $rows[] = array( 
+
+    
+
+    array('data' => t('Row 1 – Cell 1')),  
+
+   
+
+    array('data' => t('Row 1 – Cell 2')),  
+
+  
+
+    array('data' => t('Row 1 – Cell 3'))   
+
+  ); 
+
+ 
+
+  $rows[] = array(  
+
+    array('data' => t('Row 2 – Cell 1')),  
+
+    array('data' => t('Row 2 – Cell 2')), 
+
+    array('data' => t('Row 2 – Cell 3')) 
+
+  ); 
+
+ 
+  $arr = theme('table', array('header' => $header, 'rows'=> $rows));
+  
+  $edit_element = array( 
+
+                      // оглавление списка 
+
+                      '#title'          => t('Table for edit node'), 
+
+                      // содержимое fieldset-а 
+
+                      '#children'    => t('This is main text in fieldset! Table contains link for edit node'), 
+
+                      // список у нас складной 
+
+                      '#collapsible' => true,   
+
+                      // и свернутый 
+
+                      '#collapsed'  => true, 
+
+                      // в атрибутах указываем, что надо использовать указанные классы
+
+                      '#attributes'  => array(  
+
+                                              'class' => array('collapsible', 'collapsed')
+
+                                              ), 
+
+                      ); 
+
+// помещаем в $fieldset_edit функцию, которая выведет нам поле
+
+$fieldset_edit = theme('fieldset', array('element' => $edit_element)); 
+
+ 
+
+// здесь все аналогично предыдущему скрипту 
+
+$delete_element = array( 
+
+                      '#title'       => t('Table for delete node'),
+
+                      '#children'    => t('This is main text in fieldset! Table contains link for delete node').$arr,
+
+                      '#collapsible' => true, 
+
+                      '#collapsed'   => true, 
+
+                      '#attributes'  => array( 
+
+                                              'class' => array('collapsible', 'collapsed')
+
+                                              ), 
+
+                      ); 
+
+ $fieldset_delete = theme('fieldset', array('element' => $delete_element));
+ 
+ $image = theme(
+  'image_style',
+  array(
+    'path' => 'mv5bmtc0nzc5mdezn15bml5banbnxkftztcwmjc2nteymq._v1_sy317_cr70214317_.jpg',
+    'style_name' => 'my_custom_image_style',
+    'alt' => 'Alternate Text',
+    'title' => 'Title Text',
+  )
+);
+
+$items
+
+  return $arr.$fieldset_delete.$fieldset_edit.$image;
+}
+

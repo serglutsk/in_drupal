@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Implements hook_menu().
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function main_page_menu() {
+  $items['main_page'] = array(
+    'title' => t('Simple page'),
+    'page callback' => 'me_simple_page_content',
+    'access callback' => TRUE,
+  );
+  $items['page404'] = array(
+    'title' => '404 Error',
+    'page callback' => '_page404',
+    'access callback' => TRUE,
+  );
+  $items['page403'] = array(
+    'title' => '403 Forbidden',
+    'page callback' => '_page403',
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Implements content for function main_page_menu() -Simple page.
+ */
+function me_simple_page_content() {
+  $content = t('This hook enables modules to register paths in order to define
+                how URL requests are handled. Paths may be registered for URL handling 
+                only, or they can register a link to be placed in a menu (usually the Navigation 
+                menu). A path and its associated information is commonly called a "menu router 
+                item". This hook is rarely called (for example, when modules are enabled), and
+                its results are cached in the database.hook_menu() implementations return an 
+                associative array whose keys define paths and whose values are an associative
+                array of properties for each path. (The complete list of properties is in the
+                return value section below.)');
+  return $content;
+}
+
+/**
+ * Implements content for function main_page_menu() -404 Error.
+ */
+function _page404() {
+  $content = t('not found!!!');
+  return $content;
+}
+
+/**
+ * Implements content for function main_page_menu() -403Error.
+ */
+function _page403() {
+  $content = t("You don't have permission to access this page!!! ");
+  return $content;
+}

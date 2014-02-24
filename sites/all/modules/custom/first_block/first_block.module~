@@ -1,0 +1,49 @@
+<?php
+/*
+*Implements hook_block_info
+*/
+function first_block_block_info() {
+		$blocks[1]['info'] = 'Simple block';
+    	return $blocks;
+	}
+
+/*
+*Implements Hook_block_view for $delta = 1
+*/
+function first_block_block_view($delta = ''){
+     
+      switch ($delta){
+          case 1: // така delta як в  hook_block_info()
+              $block['subject'] = 'Simple block!!!'; //title block
+              $block['content'] = get_content();//content
+            
+              
+          break;
+      }
+      return $block;
+   }
+/*
+*Implements permission for this block
+*/
+
+function first_block_permission() {
+		 return array('first_block'
+   		 => array(
+      				'title' => t('View simple block'),
+    				   'description' => t('View simple this block'),
+    					),
+   					);
+	}
+	
+/**
+* Implements function get_content
+*/
+function get_content() {
+	global $user;
+	if(user_access('administer nodes',$user)){
+			return 'Hello word!!!';		
+		}
+		else{
+			return 'access to view this content is denied.';			
+			}
+	}
